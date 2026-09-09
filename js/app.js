@@ -14,10 +14,6 @@ const logListEl = document.getElementById('logList');
 const logEl = document.getElementById('log');
 const logTabEl = document.getElementById('logTab');
 
-/* ** NOVO ;;; o diário de bordo agora é uma gaveta fixa que fica quase
-   toda escondida à esquerda (só a aba aparece) e desliza por cima do
-   cenário quando o jogador clica nela — em vez de ocupar uma coluna
-   inteira da tela o tempo todo. */
 logTabEl.addEventListener('click', () => {
   const isOpen = logEl.classList.toggle('open');
   logTabEl.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
@@ -33,10 +29,6 @@ function imgTag(key, alt){
   return `<img src="${IMG[key]}" alt="${alt}">`;
 }
 
-/* Decide qual imagem vira o banner grande do topo.
-   Prioriza um cenário definido no nó; na falta dele, usa o
-   cenário genérico (placeholder) — assim toda tela mantém a
-   mesma estrutura visual, mesmo sem arte definitiva ainda. */
 function resolveHero(node){
   const key = node.scene || "cenaGenerica";
   const caption = node.sceneCaption || SCENE_CAPTION[key] || node.chapter || "";
@@ -59,11 +51,6 @@ function heroHTML(node){
   return html;
 }
 
-/* ** NOVO ;;; personagem de corpo inteiro, ancorado dentro do cenário
-   (substitui a antiga portraitHTML(), que desenhava um retrato em
-   bolinha separado do fundo). Usa a mesma imagem já cadastrada em
-   IMG/PORTRAIT_NAME no story.js — não precisa trocar nenhum arquivo
-   de imagem, só a forma como ela é exibida. */
 function characterOnStageHTML(portraitKey){
   const isPlaceholder = PLACEHOLDER_KEYS.has(portraitKey);
   const cls = 'stage-character' + (isPlaceholder ? ' is-placeholder' : '');
@@ -76,17 +63,6 @@ function characterOnStageHTML(portraitKey){
   `;
 }
 
-/* ---------- progressão da doença (linha febril) ---------- */
-/* ** CORRIGIDO ;;; a gravidade agora é calculada a partir de QUANTOS
-   locais já foram explorados (visitedLocations.size) — e não mais de
-   qual nó/local é. Antes, cada local tinha uma gravidade fixa escrita
-   em story.js (docas="febril", hospital="piorando", residencial="grave"),
-   o que fazia sentido quando a ordem era fixa (docas->mercado->hospital
-   ->igreja->residencial). Agora que o mapa é livre, o jogador pode
-   visitar o residencial primeiro e já veria "grave" sem ter piorado
-   nada, e o hub do mapa (s_map) nunca refletia progresso nenhum, ficando
-   travado em "febril" a partida inteira. Com isso, a gravidade sobe de
-   forma consistente não importa a ordem escolhida. */
 const SICK_SEVERITY_STAGES = [
   "febril",              // 0 locais visitados
   "febril, piorando",    // 1
@@ -101,11 +77,6 @@ function sickSeverity(){
   return SICK_SEVERITY_STAGES[idx];
 }
 
-/* Combina a gravidade calculada com o "sabor" narrativo que já existia
-   no status do nó em story.js (o texto depois da primeira vírgula, ex.:
-   "escondendo", "amparada", "culpada", "isolada"). Nós que não são da
-   linha da doença, ou que são finais (ending), mantêm o status original
-   (ex.: "saudável", "fim") sem nenhuma alteração. */
 function displayStatus(node){
   if(!node.sick || node.ending) return node.status;
   const parts = (node.status || "").split(",");
@@ -280,16 +251,8 @@ function renderCredits(){
 
 /* ---------- navegação entre nós ---------- */
 
-/* goTo: usado por todos os botões de escolha/continuar.
-   - se o id for um hub de mapa livre (mapHubs{}), mostra a tela do
-     mapa com os locais como cartões clicáveis. ** NOVO ;;;
-   - se o id for um capítulo em slides (chapters{}), mostra o cartão
-     de abertura e depois roda os slides em sequência.
-   - se o id for um nó comum de story{} com "card", mostra o cartão
-     de abertura e depois renderiza o nó normalmente.
-   - senão, renderiza o nó direto. */
 function goTo(id){
-  if(mapHubs[id]){ /* ** NOVO ;;; */
+  if(mapHubs[id]){ 
     renderMapHub(id);
     return;
   }
@@ -305,11 +268,6 @@ function goTo(id){
   }
 }
 
-/* ** NOVO ;;; MAPA LIVRE — tela com os locais da cidade como cartões
-   clicáveis (grade via CSS Grid, ver .map-grid no CSS). O jogador
-   escolhe a ordem; cada local visitado fica marcado e trancado até a
-   próxima partida. Quando todos os locais tiverem sido visitados,
-   aparece o botão para seguir em frente na história (hub.next). */
 function renderMapHub(id){
   const hub = mapHubs[id];
   bodyEl.classList.toggle('sick', id === 's_map');
@@ -386,9 +344,6 @@ function render(id){
   html += progressRowHTML();
 
   html += `<div class="cine-body">`;
-  /* ** REMOVIDO ;;; o retrato em bolinha saiu daqui — o personagem agora
-     é desenhado dentro do próprio cenário (ver heroHTML/characterOnStageHTML
-     lá em cima), então não precisamos mais flutuar um retrato no texto. */
   html += `<div class="cine-text">${node.text}</div>`;
   html += `</div>`; // cine-body
 
