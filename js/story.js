@@ -1,17 +1,3 @@
-/* ============================================================
-   AS ÁGUAS DO CÓLERA — dados da história
-   Este arquivo só guarda TEXTO e REFERÊNCIAS DE IMAGEM.
-   Para trocar uma ilustração, basta substituir o arquivo dentro
-   de img/personagens, img/cenarios ou img/silhuetas mantendo o
-   mesmo nome — não é preciso mexer no código.
-   ============================================================ */
-
-/* ---------- registro de imagens ---------- */
-/* Reais (já produzidas) ficam em cenarios/ e personagens/.
-   As chaves silh* e cenaGenerica são placeholders provisórios:
-   silhuetas pretas simples, para os lugares/personagens que
-   ainda não têm arte definitiva. Basta apontar a chave para o
-   arquivo definitivo quando ele existir. */
 const IMG = {
   catarina:        "img/personagens/Catarina.jpeg",
   marinheiro:       "img/personagens/marinheiro.jpeg",
@@ -61,18 +47,6 @@ const LOCATION_NAME = {
   residencial: "Residencial Comercial"
 };
 
-/* ** NOVO ;;; MAPA LIVRE — hub de navegação entre os locais da cidade.
-   Antes, os locais eram visitados numa ordem fixa (docas -> mercado ->
-   hospital -> igreja -> residencial), sempre a mesma. Agora existe uma
-   tela de mapa onde a jogadora escolhe pra onde ir, na ordem que quiser.
-   Cada nó de local continua exatamente igual (texto, escolhas, "febril"
-   etc.) — só o "continueTo" deles muda: em vez de encadear direto pro
-   próximo local, eles voltam pra este hub (ver mudanças marcadas com
-   ** ALTERADO ;;; nos nós a_docas, a_mercado_depois, a_hospital_*,
-   a_igreja, a_res_*, s_docas_*, s_mercado_*, s_hospital_*, s_igreja,
-   s_res_*, logo abaixo).
-   Existem DOIS hubs porque a linha saudável (a_) e a linha febril (s_)
-   usam nós diferentes para os mesmos lugares. */
 const mapHubs = {
   a_map: {
     chapter: "O mapa da cidade",
@@ -117,11 +91,6 @@ const introSlides = [
   }
 ];
 
-/* ---------- capítulos em telas curtas (mesmo estilo do prólogo) ---------- */
-/* cada entrada tem: card de abertura (tela preta), uma lista de slides
-   (imagem + texto + "Continuar") e "next": para onde ir depois do
-   último slide — pode ser outro capítulo (chapters) ou um nó comum
-   de story{} (ex.: o momento da escolha). */
 const chapters = {
 
   ch1: {
@@ -172,7 +141,7 @@ const story = {
       "Infeliz em sua condição social e, apesar de tudo, com bondade no coração, Catarina acaba de se colocar em um trajeto de morte.",
       "Ao amanhecer, o homem já estava morto. Na manhã seguinte, boatos começam a circular pelas docas: uma doença desconhecida chegou à cidade."
     ),
-    continueTo: "s_map", continueLabel: "Ir até o mapa da cidade" /* ** ALTERADO ;;; agora vai pro hub do mapa livre em vez de direto pras docas */
+    continueTo: "s_map", continueLabel: "Ir até o mapa da cidade" 
   },
 
   s_docas: {
@@ -198,7 +167,7 @@ const story = {
       "— Escute... não conte isso para ninguém. Metade da tripulação morreu antes de chegarmos. Os capitães escondem os corpos durante a viagem. Se descobrirem, mandam o navio de volta.",
       "Enquanto conversa, Catarina sente um suor frio escorrer pela nuca. Sua visão embaça por alguns segundos. Ela consegue sair das docas com uma informação importante — mas os sintomas aumentam."
     ),
-    continueTo: "s_map", continueLabel: "Voltar ao mapa" /* ** ALTERADO ;;; antes ia direto pro mercado, agora volta pro mapa livre */
+    continueTo: "s_map", continueLabel: "Voltar ao mapa" 
   },
 
   s_docas_confessa: {
@@ -209,7 +178,7 @@ const story = {
       "Outros homens escutam. Um deles grita: — Ela está doente! Os trabalhadores começam a se afastar. Ninguém mais aceita conversar.",
       "Catarina sai das docas sem descobrir quase nada. Mas percebe que o medo da doença consegue ser maior do que o preconceito que sempre sofreu. Enquanto se afasta, vê o homem elegante observando tudo."
     ),
-    continueTo: "s_map", continueLabel: "Voltar ao mapa" /* ** ALTERADO ;;; antes ia direto pro mercado, agora volta pro mapa livre */
+    continueTo: "s_map", continueLabel: "Voltar ao mapa" 
   },
 
   s_mercado: {
@@ -234,7 +203,7 @@ const story = {
       "As pessoas começam a recuar. Mesmo defendendo sua honra, ela acaba sendo isolada.",
       "Ao ir embora, encontra um papel preso em uma caixa. Nele há apenas uma frase: 'Nem tudo o que dizem sobre a doença é verdade.' É a primeira pista da conspiração."
     ),
-    continueTo: "s_map", continueLabel: "Voltar ao mapa" /* ** ALTERADO ;;; antes ia direto pro hospital, agora volta pro mapa livre */
+    continueTo: "s_map", continueLabel: "Voltar ao mapa" 
   },
 
   s_mercado_ignorar: {
@@ -244,7 +213,7 @@ const story = {
       "Em poucos segundos todos se afastam. Um vendedor joga água no chão onde ela estava, como se tentasse apagar sua presença.",
       "Ela não encontra nenhuma pista importante. Mas entende que, se continuar piorando, logo ninguém permitirá que ela entre em lugar algum."
     ),
-    continueTo: "s_map", continueLabel: "Voltar ao mapa" /* ** ALTERADO ;;; antes ia direto pro hospital, agora volta pro mapa livre */
+    continueTo: "s_map", continueLabel: "Voltar ao mapa"
   },
 
   s_hospital: {
@@ -269,7 +238,7 @@ const story = {
       "Enquanto caminha pelos corredores, Catarina escuta escondida dois médicos: — Não conseguimos mais contar os mortos. — Se fechassem o porto... — Não vão fechar.",
       "Ela consegue descobrir mais sobre a epidemia. Porém, ao sair, precisa apoiar-se na parede. Já mal consegue caminhar."
     ),
-    continueTo: "s_map", continueLabel: "Voltar ao mapa" /* ** ALTERADO ;;; antes ia direto pra igreja, agora volta pro mapa livre */
+    continueTo: "s_map", continueLabel: "Voltar ao mapa" 
   },
 
   s_hospital_verdade: {
@@ -280,7 +249,7 @@ const story = {
       "A freira fecha os olhos, respira fundo. — Então provavelmente você foi contaminada. Escute bem: o que vou dizer não pode sair daqui. Há gente importante escondendo a gravidade da doença. Querem evitar o pânico. Mas você precisa ir embora da cidade.",
       "É nesse momento que Catarina recebe a confirmação de que tudo aquilo era muito maior do que imaginava."
     ),
-    continueTo: "s_map", continueLabel: "Voltar ao mapa" /* ** ALTERADO ;;; antes ia direto pra igreja, agora volta pro mapa livre */
+    continueTo: "s_map", continueLabel: "Voltar ao mapa" 
   },
 
   s_igreja: {
@@ -292,7 +261,7 @@ const story = {
       "Quando pisa na madeira, não consegue correr imediatamente. Quase é descoberta e precisa esconder-se atrás do altar. Enquanto os homens procuram, ela prende a respiração.",
       "Quando consegue fugir, cai de joelhos do lado de fora. Começa a vomitar novamente."
     ),
-    continueTo: "s_map", continueLabel: "Voltar ao mapa" /* ** ALTERADO ;;; antes ia direto pro residencial, agora volta pro mapa livre */
+    continueTo: "s_map", continueLabel: "Voltar ao mapa" 
   },
 
   s_residencial: {
@@ -315,7 +284,7 @@ const story = {
       "Antes de fechar os olhos, entrega um pequeno medalhão. Dentro há um papel: 'Se acontecer alguma coisa comigo, apenas confie na irmã Helena.'",
       "Antes de morrer, ele ainda sussurra: — Não confie... nos homens da igreja..."
     ),
-    continueTo: "s_map", continueLabel: "Voltar ao mapa" /* ** ALTERADO ;;; antes ia direto pro mistério, agora volta pro mapa livre até visitar tudo */
+    continueTo: "s_map", continueLabel: "Voltar ao mapa" 
   },
 
   s_res_embora: {
@@ -324,7 +293,7 @@ const story = {
       "Ela não suporta ver outro homem morrer e sai rapidamente. No corredor encontra uma jovem criada chorando. — O senhor pediu isso antes que você fosse embora. Ela entrega o mesmo medalhão.",
       "Catarina sente culpa. Durante os dias seguintes, um pensamento volta sempre: 'Será que ele morreu sozinho?'"
     ),
-    continueTo: "s_map", continueLabel: "Voltar ao mapa" /* ** ALTERADO ;;; antes ia direto pro mistério, agora volta pro mapa livre até visitar tudo */
+    continueTo: "s_map", continueLabel: "Voltar ao mapa" 
   },
 
   s_misterio: {
@@ -394,13 +363,8 @@ const story = {
       "Silêncio. Então ela conclui: — Se a cidade acreditar que essa doença entrou nesta casa, estaremos todas na rua antes mesmo da doença nos matar.",
       "Naquele momento, Catarina percebe que sua sobrevivência depende daquele lugar."
     ),
-    continueTo: "a_map", continueLabel: "Continuar" /* ** ALTERADO ;;; agora vai direto pro hub do mapa livre, em vez do antigo a_map_intro */
+    continueTo: "a_map", continueLabel: "Continuar" 
   },
-
-  /* ** REMOVIDO ;;; "a_map_intro" não existe mais — o mapa livre agora é
-     um hub próprio (mapHubs.a_map, definido logo abaixo da lista LOCATIONS),
-     que deixa a jogadora escolher a ordem dos lugares em vez de seguir
-     um roteiro fixo (docas -> mercado -> hospital -> igreja -> residencial). */
 
   a_docas: {
     chapter: "As docas", status: "saudável", location:"docas",
@@ -410,7 +374,7 @@ const story = {
       "Um velho marinheiro comenta: — Nunca vi tantos homens adoecerem numa única viagem. Outro responde: — Metade da tripulação morreu antes de chegarmos. Um carregador completa: — Alguns capitães esconderam doentes dentro dos porões para evitar quarentena.",
       "Catarina percebe que a doença provavelmente veio pelo mar. Ao deixar as docas, sente alguém observando. Quando olha para trás, não há ninguém."
     ),
-    continueTo: "a_map", continueLabel: "Voltar ao mapa" /* ** ALTERADO ;;; antes ia direto pro mercado, agora volta pro mapa livre */
+    continueTo: "a_map", continueLabel: "Voltar ao mapa" 
   },
 
   a_mercado: {
@@ -434,7 +398,7 @@ const story = {
     text: P(
       "Seja qual for a atitude, os sussurros a seguem pelas ruas. Mais tarde, ela percebe novamente o mesmo homem elegante parado do outro lado da rua. Quando tenta se aproximar, ele desaparece entre a multidão."
     ),
-    continueTo: "a_map", continueLabel: "Voltar ao mapa" /* ** ALTERADO ;;; antes ia direto pro hospital, agora volta pro mapa livre */
+    continueTo: "a_map", continueLabel: "Voltar ao mapa" 
   },
 
   a_hospital: {
@@ -459,7 +423,7 @@ const story = {
       "Ela escuta dois médicos conversando: — Os primeiros casos vieram dos navios. — Se continuarem chegando embarcações, perderemos a cidade inteira.",
       "Ao sair do hospital, ela vê novamente o homem elegante. Ele apenas observa. Depois vai embora."
     ),
-    continueTo: "a_map", continueLabel: "Voltar ao mapa" /* ** ALTERADO ;;; antes ia direto pra igreja, agora volta pro mapa livre */
+    continueTo: "a_map", continueLabel: "Voltar ao mapa" 
   },
 
   a_hospital_verdade: {
@@ -469,7 +433,7 @@ const story = {
       "Catarina admite que não conhece ninguém ali. A freira balança a cabeça e a conduz gentilmente até a porta.",
       "Ao sair do hospital, ela vê novamente o homem elegante. Ele apenas observa. Depois vai embora."
     ),
-    continueTo: "a_map", continueLabel: "Voltar ao mapa" /* ** ALTERADO ;;; antes ia direto pra igreja, agora volta pro mapa livre */
+    continueTo: "a_map", continueLabel: "Voltar ao mapa" 
   },
 
   a_igreja: {
@@ -481,7 +445,7 @@ const story = {
       "Um homem desconhecido fala calmamente: — Então escondam os mortos. Digam que foi febre. Digam qualquer coisa. O padre permanece em silêncio. Depois responde: — Quanto menos pessoas souberem... melhor.",
       "Nesse instante, uma tábua estala sob os pés de Catarina. Silêncio. — Tem alguém aí? Catarina rapidamente foge e desaparece na escuridão — não antes de ouvir passos por perto."
     ),
-    continueTo: "a_map", continueLabel: "Voltar ao mapa" /* ** ALTERADO ;;; antes ia direto pro residencial, agora volta pro mapa livre */
+    continueTo: "a_map", continueLabel: "Voltar ao mapa" 
   },
 
   a_residencial: {
@@ -503,7 +467,7 @@ const story = {
     text: P(
       "Catarina fica ao lado da cama, segurando sua mão até a respiração dele ficar mais fraca. Antes de morrer, ele sussurra: — Não confie... nos homens da igreja..."
     ),
-    continueTo: "a_map", continueLabel: "Voltar ao mapa" /* ** ALTERADO ;;; antes ia direto pro mistério, agora volta pro mapa livre até visitar tudo */
+    continueTo: "a_map", continueLabel: "Voltar ao mapa" 
   },
 
   a_res_embora: {
@@ -511,7 +475,7 @@ const story = {
     text: P(
       "Catarina solta a mão dele e sai do quarto sem olhar para trás. Ela já viu gente demais morrer esta semana — não pode carregar mais um rosto. Ele tenta dizer algo, mas ela já fechou a porta."
     ),
-    continueTo: "a_map", continueLabel: "Voltar ao mapa" /* ** ALTERADO ;;; antes ia direto pro mistério, agora volta pro mapa livre até visitar tudo */
+    continueTo: "a_map", continueLabel: "Voltar ao mapa" 
   },
 
   a_misterio: {
