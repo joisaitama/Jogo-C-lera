@@ -18,17 +18,17 @@
   html,body{
     margin:0;
     min-height:100%;
-    min-height:100dvh; /* ** NOVO ;;; 100dvh acompanha a altura real e visível da tela (inclusive com a barra de endereço do celular indo e vindo), então o jogo preenche a tela inteira em qualquer aparelho */
+    min-height:100dvh; 
     background:var(--night);
     font-family:'Crimson Text', serif;
     color:var(--ink);
-    overflow-x:hidden; /* ** NOVO ;;; evita rolagem lateral por causa do diário fixo que fica parcialmente fora da tela quando fechado */
+    overflow-x:hidden; 
   }
 
   body{
     display:flex;
     justify-content:center;
-    padding:0; /* ** ALTERADO ;;; antes tinha respiro (32px/16px/80px) que sobrava como moldura preta; agora vai até a borda da tela */
+    padding:0; 
   }
 
   body.sick{
@@ -59,14 +59,7 @@
 
   .stage{
     width:100%;
-    max-width:none; /* ** ALTERADO ;;; antes limitava a 1180px, sobrando preto nas laterais; agora preenche a tela inteira */
-    /* ** ALTERADO ;;; o diário de bordo deixou de ser uma coluna do grid
-       (que reservava uma faixa inteira da tela só para ele, mesmo quando
-       tinha pouco conteúdo). Agora .stage é só o container do livro, e o
-       diário (.log) vira um painel fixo sobreposto à esquerda — ver as
-       regras de .log mais abaixo. Assim o jogo (imagem + texto) preenche
-       a tela inteira, e o diário só aparece por cima quando o jogador
-       clica na aba. */
+    max-width:none; 
     position:relative;
   }
 
@@ -75,8 +68,8 @@
     background:var(--paper);
     background-image:
       repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
-    border:none; /* ** ALTERADO ;;; antes tinha borda sólida, agora invisível */
-    box-shadow: inset 0 0 90px rgba(90,60,20,0.10); /* ** ALTERADO ;;; tirei a sombra externa (0 30px 70px preto) que ainda deixava uma faixa escura visível nas bordas */
+    border:none; 
+    box-shadow: inset 0 0 90px rgba(90,60,20,0.10); 
     padding:40px 44px 36px;
     position:relative;
     min-height:520px;
@@ -84,8 +77,6 @@
     overflow:hidden;
   }
 
-  /* telas de imagem cheia (título, prólogo, cartão de capítulo) não usam
-     a altura mínima do livro, senão sobra papel vazio embaixo do rodapé preto */
   .book.fullbleed{ min-height:0; }
 
   .book::after{
@@ -434,15 +425,6 @@
     justify-content:center;
   }
 
-  /* ** ALTERADO ;;; o diário de bordo não é mais uma coluna do grid (que
-     deixava uma faixa inteira da tela reservada só para ele). Agora é um
-     painel fixo (position:fixed) ancorado na borda esquerda da JANELA
-     (não do .book), com altura 100% da tela. Por padrão ele fica quase
-     todo fora da tela — só sobra a "aba" (.log-tab) de 44px, um retângulo
-     verticalzinho grudado na esquerda com o texto "Diário de bordo".
-     Ao clicar na aba, a classe .open é alternada via JS (ver app.js) e o
-     painel desliza para dentro, cobrindo uma fatia do cenário — exatamente
-     como pedido, em vez de empurrar o jogo pro lado. */
   .log{
     position:fixed;
     left:0;
@@ -525,7 +507,7 @@
 
   /* tela cinematica (prologo) */
   .cine-screen{ margin:-40px -44px -36px; }
-  .cine-hero{ width:100%; height:clamp(200px, 42vw, 320px); overflow:hidden; position:relative; } /* ** ALTERADO ;;; altura fixa (320px) virou fluida com clamp(), então não precisa mais de valor separado pro celular */
+  .cine-hero{ width:100%; height:clamp(200px, 42vw, 320px); overflow:hidden; position:relative; } 
   .cine-hero img{
     width:100%; height:100%; object-fit:cover;
     filter:sepia(0.25) saturate(0.85) contrast(1.05) brightness(0.8);
@@ -548,8 +530,7 @@
   .cine-footer .start-btn{ margin-top:8px; }
 
   @media (max-width: 760px){
-    .log{ width:min(260px, 82vw); } /* ** ALTERADO ;;; a gaveta continua sobreposta e deslizante no celular, só um pouco mais estreita */
-    .log-tab{ flex-basis:38px; width:38px; }
+    .log{ width:min(260px, 82vw); } 
     .book{ padding:28px 22px 26px; }
     .scene-banner{ width:calc(100% + 44px); margin:-28px -22px 20px; height:180px; }
     .title-screen .hero{ width:calc(100% + 44px); margin:-28px -22px 0; height:280px; }
@@ -558,12 +539,12 @@
     .portrait-cameo .frame{ width:84px; height:84px; }
     .cine-screen{ margin:-28px -22px -26px; }
     .cine-footer{ padding:22px 22px 26px; }
-    .map-grid{ grid-template-columns: 1fr; } /* ** NOVO ;;; mapa livre em 1 coluna no celular */
-    .stage-character{ right:4%; height:88%; max-height:220px; } /* ** NOVO ;;; personagem um pouco menor no celular */
+    .map-grid{ grid-template-columns: 1fr; }
+    .stage-character{ right:4%; height:88%; max-height:220px; } 
   }
 
   @media (max-width: 420px){
-    .map-grid{ gap:8px; } /* ** NOVO ;;; telas bem pequenas: cartões do mapa mais próximos */
+    .map-grid{ gap:8px; } 
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -871,12 +852,6 @@ button.cine-choice-btn:focus-visible{ outline:2px solid var(--rust); outline-off
   .cine-portrait .frame{ width:60px; height:60px; }
 }
 
-/* ============================================================
-   ** NOVO ;;; MAPA LIVRE — grade de cartões clicáveis (CSS Grid)
-   Usada por renderMapHub() no app.js. O jogador clica no local que
-   quiser explorar; locais já visitados ficam com o cartão apagado
-   e travado (pointer-events:none) até reiniciar a partida.
-   ============================================================ */
 .map-grid{
   display:grid;
   grid-template-columns: repeat(2, 1fr);
@@ -915,16 +890,8 @@ button.cine-choice-btn:focus-visible{ outline:2px solid var(--rust); outline-off
 }
 .map-card.visited .map-card-tag{ color:#c98a6f; }
 
-/* ============================================================
-   ** NOVO ;;; PERSONAGEM DE CORPO INTEIRO NO CENÁRIO
-   Substitui o antigo retrato circular (.cine-portrait / .portrait-cameo,
-   ainda presentes no CSS acima só por segurança, mas não são mais
-   usados pelo app.js). Agora o personagem aparece "em pé", dentro da
-   própria imagem de fundo (.cine-hero), como se estivesse na cena
-   conversando com Catarina — mais imersivo do que uma bolinha
-   separada flutuando no texto.
-   ============================================================ */
-.cine-hero{ display:flex; align-items:flex-end; justify-content:flex-end; } /* ** ALTERADO ;;; precisa ancorar o personagem no canto/base da cena */
+
+.cine-hero{ display:flex; align-items:flex-end; justify-content:flex-end; } 
 
 .stage-character{
   position:relative;
@@ -973,10 +940,3 @@ button.cine-choice-btn:focus-visible{ outline:2px solid var(--rust); outline-off
   border-radius:2px;
   align-self:center;
 }
-
-/* ** ALTERADO ;;; os retratos em bolinha (.cine-portrait, .portrait-cameo)
-   não são mais chamados pelo app.js — o personagem virou de corpo inteiro
-   (.stage-character, acima). As regras antigas foram deixadas no arquivo
-   de propósito, sem uso, caso vocês queiram uma tela que ainda precise
-   do formato circular no futuro. Pode apagar com segurança se não for
-   usar mais. */
